@@ -1,0 +1,164 @@
+{
+  "name": "{{ project.name }}",
+  "version": "{{ project.version }}",
+  "description": "{{ project.description }}",
+  "module": "./dist/index.js",
+  "main": "./dist/cli.js",
+  "private": true,
+  "bin": {
+    "cfa": "./dist/cli.js"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "featureApp": {
+    "port": 3000,
+    "excludeShares": []
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtn-kente/{{ project.name }}.git"
+  },
+  "keywords": [],
+  "author": "{{ project.author }}",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.0",
+    "@types/react-test-renderer": "^18.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.1.0",
+    "react-test-renderer": "^18.2.0"
+  },
+  "release": {
+    "branches": [
+      "release",
+      "next"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "releaseRules": [
+            {
+              "type": "build",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "BREAKING CHANGE",
+                "section": "💥 BREAKING CHANGES"
+              },
+              {
+                "type": "feat",
+                "section": "🚀 Features"
+              },
+              {
+                "type": "fix",
+                "section": "🐛 Bugfixes"
+              },
+              {
+                "type": "build",
+                "section": "♻️ Updated dependencies"
+              },
+              {
+                "type": "docs",
+                "section": "📝 Docs"
+              }
+            ]
+          }
+        }
+      ],
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "message": "chore(release): ${nextRelease.version}",
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "./src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --config .eslintrc.js --fix"
+    ],
+    "*.{ts,tsx,json,js,jsx,html,yml,md,mdx}": [
+      "prettier --config .prettierrc.js --write"
+    ]
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --detectOpenHandles --coverage --watchAll",
+    "lint:check": "eslint --config .eslintrc --ext .ts,.tsx,.js,.jsx .",
+    "lint:fix": "eslint --config .eslintrc --cache --fix --ext .ts,.tsx,.js,.jsx .",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,json,js,jsx,html,yml,md}\" \"!**/dist/**\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,js,jsx,html,yml,md}\" \"!**/dist/**\" \"!**/coverage/**\" \"!CHANGELOG.md\" \"!**/fa-cli-test/**\" \"!**/.github/workflows/**\" \"!**/fa-cli-test-npm/**\" \"!**/.nx/**\"",
+    "compodoc": "npx compodoc -p tsconfig.doc.json",
+    "format": "prettier --config ./.prettierrc --ignore-path .gitignore --write \"**/*.{ts,tsx,js,jsx,html,yml,md}\"",
+    "format:check": "prettier --config .prettierrc --check \"**/*.{ts,tsx,js,jsx,html,yml,md}\""
+  }
+}
